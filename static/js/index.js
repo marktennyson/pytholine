@@ -7,9 +7,9 @@ const showLoader = () => {
 
 const postData = async(url="", data={}) => {
     const response = await fetch(url, {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        method: "POST",
         mode: "cors",
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        cache: "no-cache",
         credentials: "same-origin",
         headers: {"Content-Type": "application/json",},
         redirect: "follow",
