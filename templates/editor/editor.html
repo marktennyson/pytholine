@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/css/editor.css/" >
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Question: Q1</h5>
+                    <hr style="border-top: 2px dotted #000;"/>
+                    <p class="card-text">Given a string s containing only lowercase letters, implement a function most_frequent_k_chars(s: str, k: int) -> List[str] that returns a list of the k most frequent characters in s, in decreasing order of frequency. If there are ties in frequency, the characters should be sorted in lexicographically increasing order.
+
+                        For example, if s is "aabbbcccd", and k is 2, the function should return ['b', 'c'], since b and c both occur 3 times (which is the maximum frequency), and b comes before c in lexicographic order.
+                        
+                        Note that the input string s can have length up to 10^4, and the value of k can be up to the length of s. You can assume that the input is valid and that k is always less than or equal to the number of distinct characters in s.</p>
+                </div>
+              <!-- <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div> -->
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" style="margin-right:-26px;">
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-3">
+                                            <i id="id__refresh_editor" class="trigger-icon fa-solid fa-arrows-rotate"></i>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <i id="id__compile_code" class="trigger-icon fa-solid fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top:9px;">
+                            <div id="id__code_editor"></div>
+                        </div>
+                    </div>
+                </div>
+              <!-- <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="/static/js/editor.js/"></script>
+{% endblock %}

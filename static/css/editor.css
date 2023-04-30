@@ -1,0 +1,9 @@
+.trigger-icon {
+    font-size: 27px;
+    color: blue;
+    cursor: pointer;
+}
+
+#id__code_editor {
+    height: 550px;
+}
