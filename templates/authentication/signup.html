@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+Sign Up
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="/static/css/signup.css/">
+{% endblock %}
+
+{% block content %}
+<div class="signup-page">
+    <div class="form">
+      <div class="register-form">
+        <input type="text" placeholder="name"/>
+        <input type="text" placeholder="username"/>
+        <input type="password" placeholder="password"/>
+        <input type="email" placeholder="email address"/>
+        <button>create account</button>
+        <p class="message">Already registered? <a href="/authentication/login/">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -16,7 +16,7 @@ async def editor_index_page(request):
 def execute_code(code) -> Tuple[str, bool]:
     is_error:bool = False
     try:
-        result:str = subprocess.check_output(['python3.10', '-c', code], stderr=subprocess.STDOUT).decode('utf-8').strip()
+        result:str = subprocess.check_output(['python3', '-c', code], stderr=subprocess.STDOUT).decode('utf-8').strip()
     except subprocess.CalledProcessError as e:
         is_error = True
         result = e.output.decode('utf-8').strip()
