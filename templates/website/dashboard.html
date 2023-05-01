@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{%block navbar %}
+{% include 'components/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<h3>Your available batches are below: <br/></h3>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        <div class="row" id="id__batch_list">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/js/dashboard.js/"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        fetchBatches({{request.user.student.pk}});
+    })
+</script>
+{% endblock %}

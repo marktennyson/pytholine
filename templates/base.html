@@ -12,9 +12,8 @@
         {% block style %}{% endblock %}
     </head>
     <body>
-        <div class="container-fluid">
-            {% block content %}{% endblock %}
-        </div>
+        {% block navbar %}{% endblock %}
+        {% block content %}{% endblock %}
         <div id="ajax-loader" style="display:none;">
             <div id="loader"></div>
             <div id="loader-overlay"></div>

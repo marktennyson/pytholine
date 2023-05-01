@@ -10,11 +10,15 @@ Login
 <div class="login-page">
     <div class="form">
         <div class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
+            <input id="id__login_username" type="text" placeholder="username"/>
+            <input id="id__login_password" type="password" placeholder="password"/>
+            <button id="id__login_btn">login</button>
             <p class="message">Not registered? <a href="/authentication/signup/">Create an account</a></p>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/js/authentication.js/"></script>
 {% endblock %}

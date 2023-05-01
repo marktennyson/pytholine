@@ -5,3 +5,5 @@ from .models import *
 
 admin.site.register(QuestionCategory)
 admin.site.register(Question)
+admin.site.register(Batch)
+admin.site.register(Language)
