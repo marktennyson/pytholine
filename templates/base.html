@@ -13,6 +13,7 @@
     </head>
     <body>
         {% block navbar %}{% endblock %}
+        {% include 'components/alert.html' %}
         <main>{% block content %}{% endblock %}</main>
         <div id="ajax-loader" style="display:none;">
             <div id="loader"></div>

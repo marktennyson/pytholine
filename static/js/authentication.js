@@ -11,7 +11,7 @@ $("#id__login_btn").on("click", () => {
         if (data.status){
             window.location.href = `/curriculum/dashboard/?${data.next}`
         }else{
-            showAlert(data.message, "error");
+            showAlert(data.message, "danger");
         }
     })
 })

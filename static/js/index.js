@@ -65,11 +65,6 @@ const logout = () => {
     })
 }
 
-const showAlert = (type) => {
-    html = `
-    <div class="alert-${type.toLowerCase()}">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        This is an alert box.
-    </div>
-    `
+const showAlert = (message, type) => {
+    $("#id__alert_box").addClass(`alert-${type.toLowerCase()}`).find("p").html(message).end().show();
 }

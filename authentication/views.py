@@ -1,5 +1,5 @@
 import logging
-from django.http import HttpResponseServerError, JsonResponse
+from django.http import HttpResponseServerError, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as login_maker, logout
 from django.contrib.auth.decorators import login_required
@@ -14,8 +14,10 @@ if TYPE_CHECKING is True:
     from django.contrib.auth.models import AbstractUser
 
 @require_http_methods(methods=['GET'])
-async def login(request):
+def login(request):
     try:
+        if request.user and request.user.is_authenticated:
+            return HttpResponseRedirect("/curriculum/dashboard")
         return render(request, 'authentication/login.html', {})
 
     except Exception as e:
@@ -34,12 +36,15 @@ def login_api(request):
         username:str = body['username']
         password:str = body['password']
         _next:str = body.get('next', str())
-        user:"Optional[AbstractUser]" = authenticate(request, username=username, password=password)
-        if user is not None and not user.is_staff:
-            login_maker(request, user)
+        if request.user and request.user.is_authenticated:
             response_dict = {'status': True, 'message': "Login successful", 'next': _next}
         else:
-            response_dict = {'status': False, 'message': 'Invalid login credentials'}
+            user:"Optional[AbstractUser]" = authenticate(request, username=username, password=password)
+            if user is not None and not user.is_staff:
+                login_maker(request, user)
+                response_dict = {'status': True, 'message': "Login successful", 'next': _next}
+            else:
+                response_dict = {'status': False, 'message': 'Invalid login credentials'}
     
     except Exception as e:
         logging.error(e, exc_info=True)
