@@ -2,6 +2,7 @@ from django.db import models
 from uuid import uuid4
 from datetime import datetime
 from django.contrib.auth.models import User
+from typing import Optional
 
 # Create your models here.
 
@@ -45,10 +46,22 @@ class Question(models.Model):
     correct_answer = models.CharField(max_length=255, null=True, blank=True)
     marks = models.FloatField(default=1.0)
     last_modified_at = models.DateTimeField(auto_now_add=True)
-    last_modified_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL,)
+    last_modified_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,)
 
     def __str__(self):
         return f"{self.pk} - {self.name}"
+    
+    @property
+    def next(self) -> Optional["Question"]:
+        return Question.objects.filter(pk__gt=self.pk, category=self.category).order_by('id').first()
+    
+    @property
+    def previous(self) -> Optional["Question"]:
+        return Question.objects.filter(pk__lt=self.pk, category=self.category).order_by('id').last()
+    
+    @property
+    def _uuid(self) -> str:
+        return str(self.uuid)
     
 class Batch(models.Model):
     name = models.CharField(max_length=255)
@@ -68,3 +81,12 @@ class Batch(models.Model):
     def adjust_state(self):
         if self.end_date < datetime.now():
             self.is_active = True
+
+class StudentAnswer(models.Model):
+    student = models.ForeignKey("authentication.Student", on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    body = models.TextField()
+    answer = models.CharField(max_length=255)
+    score = models.FloatField(default=0.0)
+    is_correct = models.BooleanField(default=False)
+    last_modified_at = models.DateTimeField(auto_now_add=True)

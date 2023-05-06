@@ -1,5 +1,5 @@
 import json
-import asyncio
+import asyncio, subprocess
 from functools import wraps
 
 from asgiref.sync import async_to_sync
@@ -20,7 +20,6 @@ def get_request_body(request) -> Union[List[Any], Dict[Any, Any]]:
     except:
         return {}
 
-    
 
 @sync_and_async_middleware
 def require_http_methods(methods):
@@ -48,3 +47,13 @@ def require_http_methods(methods):
 
 def format_dob(dob_str:str, format:str="%Y-%m-%d"):
     return datetime.strptime(dob_str, format).date()
+
+def execute_code(code) -> Tuple[str, bool]:
+    is_error:bool = False
+    try:
+        result:str = subprocess.check_output(['python3', '-c', code], stderr=subprocess.STDOUT).decode('utf-8').strip()
+    except subprocess.CalledProcessError as e:
+        is_error = True
+        result = e.output.decode('utf-8').strip()
+
+    return str(result), is_error

@@ -54,5 +54,22 @@ const makeBatchNameByDate = (startDate, endDate) => {
     let endDateStr = enddate.toLocaleString("en-US", options);
 
     return `${startDateStr} - ${endDateStr}`;
+}
 
+const logout = () => {
+    getData(`/accounts/logout-api/`)
+    .then(data => {
+        if (data.status){
+            window.location.replace(data.login_url);
+        }
+    })
+}
+
+const showAlert = (type) => {
+    html = `
+    <div class="alert-${type.toLowerCase()}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        This is an alert box.
+    </div>
+    `
 }

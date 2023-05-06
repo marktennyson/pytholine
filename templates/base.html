@@ -13,7 +13,7 @@
     </head>
     <body>
         {% block navbar %}{% endblock %}
-        {% block content %}{% endblock %}
+        <main>{% block content %}{% endblock %}</main>
         <div id="ajax-loader" style="display:none;">
             <div id="loader"></div>
             <div id="loader-overlay"></div>
@@ -23,6 +23,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-    <script src="/static/js/index.js/"></script>
+    <script src="/static/js/index.js/?v=1"></script>
     {% block javascript %}{% endblock %}
 </html>

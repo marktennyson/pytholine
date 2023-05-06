@@ -5,13 +5,13 @@ $("#id__login_btn").on("click", () => {
         password: $("#id__login_password").val()
     }
     showLoader();
-    postData("/authentication/login-api/", payload)
+    postData("/accounts/login-api/", payload)
     .then(data => {
         hideLoader();
         if (data.status){
-            window.location.href = "/website/dashboard/"
+            window.location.href = `/curriculum/dashboard/?${data.next}`
         }else{
-            alert(data.message)
+            showAlert(data.message, "error");
         }
     })
 })

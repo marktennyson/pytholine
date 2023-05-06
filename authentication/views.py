@@ -1,7 +1,8 @@
 import logging
 from django.http import HttpResponseServerError, JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as login_maker
+from django.contrib.auth import authenticate, login as login_maker, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import *
 
@@ -10,7 +11,7 @@ from helper import format_dob, get_request_body, require_http_methods
 from typing import *
 
 if TYPE_CHECKING is True:
-    from django.contrib.auth.models import AbstractBaseUser
+    from django.contrib.auth.models import AbstractUser
 
 @require_http_methods(methods=['GET'])
 async def login(request):
@@ -32,10 +33,11 @@ def login_api(request):
         body = get_request_body(request)
         username:str = body['username']
         password:str = body['password']
-        user:"Optional[AbstractBaseUser]" = authenticate(request, username=username, password=password)
-        if user is not None:
+        _next:str = body.get('next', str())
+        user:"Optional[AbstractUser]" = authenticate(request, username=username, password=password)
+        if user is not None and not user.is_staff:
             login_maker(request, user)
-            response_dict = {'status': True, 'message': "Login successful"}
+            response_dict = {'status': True, 'message': "Login successful", 'next': _next}
         else:
             response_dict = {'status': False, 'message': 'Invalid login credentials'}
     
@@ -104,6 +106,27 @@ async def signup_api(request):
             'status': False,
             'message': 'An error occurred while log in. Please try again later.',
             'categories': []
+        }
+    
+    return JsonResponse(response_dict)
+
+@login_required
+def logout_api(request):
+    try:
+        logout(request)
+        response_dict = {
+            'status': True,
+            'message': 'Log out successfully',
+            'login_url': '/accounts/login/'
+        }
+    
+    except Exception as e:
+        logging.error(e)
+        logging.exception("authentication.views.logout_api")
+        response_dict = {
+            'status': False,
+            'message': 'An error occurred while log out. Please try again later.',
+            'login_url': '/accounts/login/'
         }
     
     return JsonResponse(response_dict)

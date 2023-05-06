@@ -10,7 +10,7 @@ editor.session.setMode("ace/mode/python");
 $("#id__refresh_editor").on("click", () => {
     showLoader();
     editor.setValue("");
-    $(".card .card-footer #id__output").html("<b>Output:&nbsp;</b>&nbsp;!");
+    $(".card .card-footer #id__output").html("<b>Output:&nbsp;</b>&nbsp;!").data({output: "!"});
     $(".card .card-footer #id__status").html("<b>Status:&nbsp;</b>&nbsp;!");
     hideLoader();
 })
@@ -25,7 +25,7 @@ const compileTheCode = () => {
         code: code
     }
     showLoader();
-    postData("/editor/code-compiler/", data)
+    postData("/curriculum/code-compiler/", data)
     .then(result => {
         hideLoader();
         if (result.status){
@@ -42,8 +42,26 @@ const compileTheCode = () => {
             ${result.is_correct_answer ? 'Right' : 'Wrong'}
             </span>
             `;
-            $(".card .card-footer #id__output").html(outputHtml);
+            $(".card .card-footer #id__output").html(outputHtml).data({output: result.output});
             $(".card .card-footer #id__status").html(statusHtml);
+        }
+    })
+}
+
+const submitAnswer = obj => {
+    let payload = {
+        body: editor.getValue(),
+        question_id: parseInt($("#id__question_id").val()),
+        student_id: parseInt($("#id__student_id").val()),
+        answer: $(".card .card-footer #id__output").data('output')
+    }
+    showLoader();
+
+    postData(`/curriculum/submit-answer/`, payload)
+    .then(data => {
+        hideLoader();
+        if (data.status){
+
         }
     })
 }

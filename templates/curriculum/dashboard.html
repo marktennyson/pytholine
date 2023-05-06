@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{%block navbar %}
+<header>{% include 'components/navbar.html' %}</header>
+{% endblock %}
+
+{% block content %}
+<h3>Available categories are: <br/><br/></h3>
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <table style="padding:5px;" class="table table-striped" id="id__question_category_listing_table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>No Of Question</th>
+                        <th>Total Score</th>
+                        <th>Your Score</th>
+                        <th>Last Submission Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/js/dashboard.js/?v=1"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        fetchCategories();
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/css/editor.css/" >
+{% endblock %}
+
+{% block title %}
+Q {{question.pk}}: {{question.name}}
+{% endblock %}
+
+{%block navbar %}
+<header>{% include 'components/navbar.html' %}</header>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="card-title">Q {{question.pk}}: {{question.name}}</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <i style="margin-right:25px;" class="trigger-icon fa-solid fa-arrow-left-long" onclick="javascript:window.location.replace('{{priv_question_url}}')"></i>
+                            <i class="trigger-icon fa-solid fa-arrow-right-long" onclick="javascript:window.location.replace('{{next_question_url}}')"></i>
+                        </div>
+                    </div>
+                    <hr style="border-top: 2px dotted #000;"/>
+                    <p class="card-text">{{question.body}}</p>
+                </div>
+              <!-- <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div> -->
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" style="margin-right:-26px;">
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-3">
+                                            <i title="Delete" id="id__refresh_editor" class="trigger-icon fa-solid fa-arrows-rotate"></i>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <i title="Run" id="id__compile_code" class="trigger-icon fa-solid fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top:9px;">
+                            <div id="id__code_editor">{{question.answer_prefix}}</div>
+                        </div>
+                    </div>
+                </div>
+              <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p id="id__output">
+                                    <b>Output:&nbsp;</b>&nbsp;!
+                                </p>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <p id="id__status">
+                                    <b>Status:&nbsp;</b>&nbsp;!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <i title="submit" style="margin-left:60px;" class="submit_answer trigger-icon fa-solid fa-cloud-arrow-up" onclick="javascript:submitAnswer(this)"></i>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="{{request.user.student.pk}}" id="id__student_id">
+<input type="hidden" value="{{question.pk}}" id="id__question_id">
+{% endblock %}
+
+{% block javascript %}
+<script src="/static/js/question.js/?v=1"></script>
+{% endblock %}
