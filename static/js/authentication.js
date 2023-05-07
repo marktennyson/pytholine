@@ -25,18 +25,21 @@ $(".register-form").on("input", "#id__password, #id__confirm_password", () => {
     }
 })
 
-$("#id__signup_btn").on("click", function() {
+$("#id__signup_form").on("submit", (event) => {
+    event.preventDefault();
     if ($("#id__password").val() == $("#id__confirm_password").val()){
         let payload = {
             first_name: $("#id__first_name").val(),
             last_name: $("#id__last_name").val(),
             username: $("#id__username").val(),
             password: $("#id__password").val(),
-            email: $("#id__email").val(),
+            email_id: $("#id__email").val(),
         }
+        showLoader();
         postData("/accounts/signup-api/", payload)
         .then(data => {
-            if (data.success) {
+            hideLoader();
+            if (data.status) {
                 showAlert("Registration successfull", "success");
                 window.location.replace("/curriculum/dashboard/");
             }else{

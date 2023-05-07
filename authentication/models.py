@@ -9,7 +9,7 @@ class Student(models.Model):
     timezone = models.CharField(max_length=50, default="Asia/Kolkata")
     profile_picture = models.CharField(max_length=256, blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    batches = models.ManyToManyField("curriculum.Batch")
+    # batches = models.ManyToManyField("curriculum.Batch")
     last_modified_at = models.DateTimeField(auto_now_add=True)
     last_modified_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True, related_name="last_updated_by")
@@ -20,3 +20,7 @@ class Student(models.Model):
 
     def __str__(self) -> str:
         return self.fullname
+    
+    @classmethod
+    def is_username_blocked(cls, username:str):
+        return User.objects.filter(username=username).count() > 0

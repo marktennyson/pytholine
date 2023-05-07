@@ -8,7 +8,7 @@ Sign Up
 
 {% block content %}
 <div class="signup-page">
-    <form class="form">
+    <form class="form" id="id__signup_form">
       <div class="register-form">
         <input type="text" required id="id__first_name" placeholder="First Name"/>
         <input type="text" required id="id__last_name" placeholder="Last Name"/>
@@ -17,7 +17,7 @@ Sign Up
         <input type="password" required id="id__confirm_password" placeholder="Confirm Password"/>
         <small id="id__err_txt_1_pcnf" required style="color:red;">Passwords do not match, please re-enter.</small>
         <input id="id__email" type="email" required placeholder="Email Address"/>
-        <button id="id__signup_btn">create account</button>
+        <button id="id__signup_btn" type="submit">create account</button>
         <p class="message">Already registered? <a href="/accounts/login/">Sign In</a></p>
       </div>
     </form>

@@ -74,8 +74,8 @@ def signup(request):
 def signup_api(request):
     try:
         body = get_request_body(request)
-        username = body['username']
-        password = body['password']
+        username = body['username'].strip()
+        password = body['password'].strip()
         first_name = body['first_name'].strip()
         last_name = body['last_name'].strip()
         email_id = body['email_id'].strip()
@@ -85,7 +85,7 @@ def signup_api(request):
         # dateofbirth = body['dateofbirth'].strip()
         profile_picture = body.get('profile_picture', str())
 
-        if authenticate(request, username, password):
+        if Student.is_username_blocked(username):
             response_dict = {'status': False, 'message': 'Username already exists'}
         else:
             user:"User" = User.objects.create(
@@ -95,6 +95,7 @@ def signup_api(request):
                 last_name=last_name,
             )
             user.set_password(password)
+            user.save()
 
             Student.objects.create(
                 phone_number=phone_number,
@@ -111,7 +112,7 @@ def signup_api(request):
         logging.exception("curriculum.views.list_all_categories")
         response_dict = {
             'status': False,
-            'message': 'An error occurred while log in. Please try again later.',
+            'message': 'An error occurred while sign up. Please try again later.',
             'categories': []
         }
     
