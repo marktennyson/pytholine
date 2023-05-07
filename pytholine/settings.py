@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-!(qx3*ucpv#4z&m7lm08x196n!zf9&y-9l30el0bhb=ro9@qeo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -90,7 +89,9 @@ if os.environ.get("DJANGO_ENV", "development").lower() == "production":
             'PORT': os.environ['DB_PORT'], 
         }
     }
+    ALLOWED_HOSTS = ["py.aniketsarkar.info"]
 else:
+    ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
