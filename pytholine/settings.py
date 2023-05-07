@@ -140,7 +140,7 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://py.aniketsarkar.info']
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"), # your static/ files folder
