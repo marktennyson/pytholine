@@ -89,7 +89,7 @@ if os.environ.get("DJANGO_ENV", "development").lower() == "production":
             'PORT': os.environ['DB_PORT'], 
         }
     }
-    ALLOWED_HOSTS = ["py.aniketsarkar.info"]
+    ALLOWED_HOSTS = ["*"]
 else:
     ALLOWED_HOSTS = []
     DATABASES = {
@@ -138,11 +138,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"), # your static/ files folder
-]
+CSRF_TRUSTED_ORIGINS = ['*']
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"), # your static/ files folder
+# ]
 
 
 # Default primary key field type
