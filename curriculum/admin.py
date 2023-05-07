@@ -4,7 +4,13 @@ from .models import *
 # Register your models here.
 
 admin.site.register(QuestionCategory)
-admin.site.register(Question)
 admin.site.register(Batch)
-admin.site.register(Language)
 admin.site.register(StudentAnswer)
+admin.site.register(Question)
+
+# class QuestionModelOptions(admin.TabularInline):
+#     fields = (... , "index",)
+#     # define the sortable
+#     sortable_field_name = "index"
+
+# admin.site.register(Question, QuestionModelOptions)

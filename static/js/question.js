@@ -44,24 +44,30 @@ const compileTheCode = () => {
             `;
             $(".card .card-footer #id__output").html(outputHtml).data({output: result.output});
             $(".card .card-footer #id__status").html(statusHtml);
+        }else{
+            showAlert(result.message, "error");
         }
     })
 }
 
 const submitAnswer = obj => {
-    let payload = {
-        body: editor.getValue(),
-        question_id: parseInt($("#id__question_id").val()),
-        student_id: parseInt($("#id__student_id").val()),
-        answer: $(".card .card-footer #id__output").data('output')
-    }
-    showLoader();
-
-    postData(`/curriculum/submit-answer/`, payload)
-    .then(data => {
-        hideLoader();
-        if (data.status){
-
+    if (confirm("Do you really want to submit your answer? ")){
+        let payload = {
+            body: editor.getValue(),
+            question_id: parseInt($("#id__question_id").val()),
+            student_id: parseInt($("#id__student_id").val()),
+            answer: $(".card .card-footer #id__output").data('output')
         }
-    })
+        showLoader();
+    
+        postData(`/curriculum/submit-answer/`, payload)
+        .then(data => {
+            hideLoader();
+            if (data.status){
+                showAlert(data.message, "success");
+            }else{
+                showAlert(data.message, "error");
+            }
+        })
+    }
 }

@@ -71,7 +71,7 @@ def signup(request):
         return HttpResponseServerError(error_msg)
 
 @require_http_methods(methods=['POST'])
-async def signup_api(request):
+def signup_api(request):
     try:
         body = get_request_body(request)
         username = body['username']
@@ -79,14 +79,16 @@ async def signup_api(request):
         first_name = body['first_name'].strip()
         last_name = body['last_name'].strip()
         email_id = body['email_id'].strip()
-        phone_number = body['phone_number'].strip()
-        dateofbirth = body['dateofbirth'].strip()
+        # phone_number = body['phone_number'].strip()
+        phone_number = "+91 9999999999"
+        dateofbirth = "1998-08-16"
+        # dateofbirth = body['dateofbirth'].strip()
         profile_picture = body.get('profile_picture', str())
 
         if authenticate(request, username, password):
             response_dict = {'status': False, 'message': 'Username already exists'}
         else:
-            user:"User" = await User.objects.acreate(
+            user:"User" = User.objects.create(
                 username=username,
                 email=email_id,
                 first_name=first_name,
@@ -94,7 +96,7 @@ async def signup_api(request):
             )
             user.set_password(password)
 
-            Student.objects.acreate(
+            Student.objects.create(
                 phone_number=phone_number,
                 dob = format_dob(dateofbirth),
                 profile_picture=profile_picture,

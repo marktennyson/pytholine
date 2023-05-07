@@ -6,20 +6,10 @@ from typing import Optional
 
 # Create your models here.
 
-class Language(models.Model):
-    name = models.CharField(max_length=255)
-    logo = models.ImageField(blank=True, null=True)
-    last_modified_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL,)
-
-    def __str__(self) -> str:
-        return self.name.capitalize()
-
 class QuestionCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
-    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     last_modified_at = models.DateTimeField(auto_now_add=True)
     last_modified_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL,)
 
@@ -39,6 +29,7 @@ class Question(models.Model):
     )
     name = models.CharField(max_length=255)
     uuid = models.UUIDField(max_length=40, default=str(uuid4()))
+    # index = models.PositiveSmallIntegerField("Index", null=True)
     lavel = models.IntegerField(default=LAVEL.EASY, choices=DIFFICULTY_LAVEL_CHOICES)
     body = models.TextField(null=True, blank=True)
     category = models.ForeignKey(QuestionCategory, on_delete=models.SET_NULL, null=True, blank=True)
@@ -47,6 +38,9 @@ class Question(models.Model):
     marks = models.FloatField(default=1.0)
     last_modified_at = models.DateTimeField(auto_now_add=True)
     last_modified_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,)
+
+    # class Meta:
+    #     ordering = ['index']
 
     def __str__(self):
         return f"{self.pk} - {self.name}"
@@ -65,7 +59,7 @@ class Question(models.Model):
     
 class Batch(models.Model):
     name = models.CharField(max_length=255)
-    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    # language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     categories = models.ManyToManyField(QuestionCategory)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()

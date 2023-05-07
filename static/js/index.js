@@ -66,5 +66,32 @@ const logout = () => {
 }
 
 const showAlert = (message, type) => {
-    $("#id__alert_box").addClass(`alert-${type.toLowerCase()}`).find("p").html(message).end().show();
+    var alertBox = $("#id__alert_box");
+
+	alertBox.find("p").html(message);
+
+	// Set the background color based on the message type
+	switch(type) {
+		case "success":
+			alertBox.css("background-color", "#4CAF50");
+			break;
+		case "info":
+			alertBox.css("background-color", "#2196F3");
+			break;
+		case "error":
+			alertBox.css("background-color", "#f44336");
+			break;
+	}
+
+	// Show the alert box
+	alertBox.addClass("show").removeClass('hide');
+
+	// Hide the alert box after 3 seconds
+	setTimeout(function() {
+		closeAlertBox();
+	}, 2000);
+} 
+
+const closeAlertBox = obj => {
+    $("#id__alert_box").addClass('hide').removeClass("show");
 }

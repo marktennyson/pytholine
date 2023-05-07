@@ -8,15 +8,22 @@ Sign Up
 
 {% block content %}
 <div class="signup-page">
-    <div class="form">
+    <form class="form">
       <div class="register-form">
-        <input type="text" placeholder="name"/>
-        <input type="text" placeholder="username"/>
-        <input type="password" placeholder="password"/>
-        <input type="email" placeholder="email address"/>
-        <button>create account</button>
+        <input type="text" required id="id__first_name" placeholder="First Name"/>
+        <input type="text" required id="id__last_name" placeholder="Last Name"/>
+        <input type="text" required id="id__username" placeholder="Username"/>
+        <input type="password" required id="id__password" placeholder="Password"/>
+        <input type="password" required id="id__confirm_password" placeholder="Confirm Password"/>
+        <small id="id__err_txt_1_pcnf" required style="color:red;">Passwords do not match, please re-enter.</small>
+        <input id="id__email" type="email" required placeholder="Email Address"/>
+        <button id="id__signup_btn">create account</button>
         <p class="message">Already registered? <a href="/accounts/login/">Sign In</a></p>
       </div>
-    </div>
+    </form>
   </div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/js/authentication.js/?v=1"></script>
 {% endblock %}

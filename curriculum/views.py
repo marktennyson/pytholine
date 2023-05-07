@@ -95,11 +95,11 @@ def dashboard(request):
         return HttpResponseServerError(error_msg)
     
 
-async def editor_index_page(request):
+def editor_index_page(request):
     return render(request, "editor/editor.html", {})
 
 
-async def compile_the_code(request):
+def compile_the_code(request):
     time_s1 = time.time()
     response_dict = {'status': False, 'message': "Internal Server Down", 'output': ''}
     try:
@@ -161,7 +161,7 @@ def show_question_page(request, uuid):
         return HttpResponseServerError(error_msg)
 
 @login_required
-async def submit_answer(request):
+def submit_answer(request):
     try:
         qd = get_request_body(request)
         question_id:int = int(qd['question_id'])
@@ -182,7 +182,7 @@ async def submit_answer(request):
         answer.answer = _answer
         answer.body = body
         answer.last_modified_at = timezone.now()
-        await answer.asave()
+        answer.save()
 
         response_dict = {
             'status': True,
